@@ -1,0 +1,1382 @@
+<!DOCTYPE html>
+<html data-page-node-id="i5WXhROfMDZU3LQyRvrP8B" lang="zh-CN">
+<head data-page-node-id="oA0C7PqDA98WHr5fEGsvID">
+  <meta data-page-node-id="civ8d3lsf2I2gs8pluZNt9" charset="UTF-8">
+  <meta data-page-node-id="PgzuyG3UKLAGpuqmYr4vLe" content="width=device-width, initial-scale=1.0, user-scalable=no" name="viewport">
+  <title data-page-node-id="wL3A6ee96f7gDdUAVjYmXP" data-pnid-children="ZnqTzVS5pawOCegqsxesVw">麦当劳飞天麦乐鸡</title>
+  <style data-page-node-id="0U7B3r60e32rCoVgr9fPZt" data-pnid-children="w5Bz9gnG4jt05copCkanjV">
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    @font-face {
+      font-family: 'Pixel';
+      src: local('Courier New'), local('Courier'), monospace;
+    }
+
+    body {
+      min-height: 100vh;
+      padding: 28px 24px 22px;
+      background-color: #e7f0e8;
+      background-image: radial-gradient(#b9d1c6 1px, transparent 1px);
+      background-size: 18px 18px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      font-family: 'Courier New', Courier, monospace;
+      overflow-x: hidden;
+      color: #193b36;
+    }
+
+    .site-shell {
+      width: min(100%, 980px);
+      margin: auto;
+    }
+
+    .site-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 22px;
+    }
+
+    .brand-mark {
+      display: flex;
+      align-items: center;
+    }
+
+    .brand-logo {
+      display: block;
+      width: 54px;
+      height: 42px;
+    }
+
+    #game-wrapper:fullscreen {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100vw;
+      height: 100dvh;
+      max-width: none;
+      aspect-ratio: auto;
+      border: 0;
+      border-radius: 0;
+      background: #193b36;
+      box-shadow: none;
+      animation: none;
+    }
+
+    #game-wrapper:fullscreen canvas {
+      position: relative;
+      inset: auto;
+      flex: 0 0 auto;
+      width: min(100vw, 66.6667dvh);
+      height: min(100dvh, 150vw);
+    }
+
+    .fullscreen-exit {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      z-index: 12;
+      display: none;
+      width: 44px;
+      height: 44px;
+      border: 2px solid #fff8dc;
+      border-radius: 50%;
+      background: rgba(25, 59, 54, 0.8);
+      color: #fff8dc;
+      font: 28px/1 'Courier New', monospace;
+      cursor: pointer;
+    }
+
+    #game-wrapper:fullscreen .fullscreen-exit {
+      display: block;
+    }
+
+    .edition-tag {
+      padding: 8px 11px;
+      border: 1px solid #193b36;
+      background: #f7f7ec;
+      color: #193b36;
+      font-size: 11px;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    .arcade-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 300px;
+      align-items: center;
+      gap: 36px;
+    }
+
+    .game-stage {
+      display: flex;
+      justify-content: center;
+    }
+
+    #game-wrapper {
+      position: relative;
+      width: min(100%, 400px);
+      aspect-ratio: 2 / 3;
+      border: 4px solid #DA291C;
+      border-radius: 8px;
+      overflow: hidden;
+      background-color: #FFF8DC;
+      box-shadow: 8px 8px 0 #193b36, 0 18px 40px rgba(25, 59, 54, 0.14);
+      animation: stageEnter 500ms ease-out both;
+    }
+
+    canvas {
+      display: block;
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      touch-action: manipulation;
+    }
+
+    .game-info {
+      animation: infoEnter 650ms 100ms ease-out both;
+    }
+
+    .eyebrow {
+      margin-bottom: 12px;
+      color: #da291c;
+      font-size: 12px;
+      font-weight: bold;
+      letter-spacing: 2px;
+    }
+
+    .game-info h1 {
+      max-width: 330px;
+      margin-bottom: 12px;
+      color: #193b36;
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: clamp(32px, 5vw, 50px);
+      line-height: 1.02;
+    }
+
+    .game-description {
+      max-width: 310px;
+      color: #45635c;
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .record-panel {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 24px 0;
+      padding: 14px 16px;
+      border-top: 2px solid #193b36;
+      border-bottom: 2px solid #193b36;
+    }
+
+    .record-label {
+      color: #45635c;
+      font-size: 11px;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    .record-value {
+      color: #da291c;
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    .controls-title {
+      margin-bottom: 12px;
+      font-size: 12px;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    .control-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 9px 0;
+      color: #45635c;
+      font-size: 13px;
+    }
+
+    .keycap {
+      display: inline-grid;
+      place-items: center;
+      min-width: 38px;
+      height: 32px;
+      padding: 0 8px;
+      border: 1px solid #193b36;
+      border-bottom-width: 3px;
+      background: #f7f7ec;
+      color: #193b36;
+      font-weight: bold;
+    }
+
+    .start-hint {
+      margin-top: 22px;
+      color: #da291c;
+      font-size: 12px;
+      font-weight: bold;
+      line-height: 1.6;
+    }
+
+    @keyframes stageEnter {
+      from { opacity: 0; transform: translateY(14px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes infoEnter {
+      from { opacity: 0; transform: translateX(12px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    /* 复活面板 */
+    .revive-panel {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #FFFEF0;
+      border: 4px solid #DA291C;
+      border-radius: 12px;
+      padding: 24px 20px;
+      text-align: center;
+      display: none;
+      z-index: 20;
+      width: min(320px, calc(100% - 24px));
+      box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+    }
+
+    .revive-panel h2 {
+      color: #DA291C;
+      font-size: 20px;
+      margin-bottom: 16px;
+      font-weight: bold;
+      text-shadow: 2px 2px 0px #FFC72C;
+      letter-spacing: 1px;
+    }
+
+    .revive-btn {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 3px solid #DA291C;
+      border-radius: 8px;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.1s, box-shadow 0.1s;
+      text-shadow: 1px 1px 0 rgba(0,0,0,0.15);
+    }
+
+    .revive-btn:hover {
+      transform: scale(1.03);
+    }
+
+    .revive-btn:active {
+      transform: scale(0.97);
+    }
+
+    .revive-btn.primary {
+      background: #FFC72C;
+      color: #DA291C;
+    }
+
+    .revive-btn.secondary {
+      background: #DA291C;
+      color: #FFF;
+    }
+
+    .revive-btn.tertiary {
+      background: #FFF;
+      color: #333;
+      border-color: #999;
+    }
+
+    /* 广告黑屏 */
+    .ad-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #000;
+      display: none;
+      z-index: 30;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #FFC72C;
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    .ad-overlay .ad-logo {
+      font-size: 48px;
+      margin-bottom: 20px;
+      color: #DA291C;
+      text-shadow: 0 0 10px #FFC72C;
+    }
+
+    .ad-overlay .ad-text {
+      font-size: 18px;
+      margin-bottom: 16px;
+    }
+
+    .ad-overlay .ad-countdown {
+      font-size: 56px;
+      color: #FFC72C;
+      font-weight: bold;
+      text-shadow: 2px 2px 0 #DA291C;
+    }
+
+    /* 最终结算面板 */
+    .final-panel {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #FFFEF0;
+      border: 4px solid #DA291C;
+      border-radius: 16px;
+      padding: 28px 24px;
+      text-align: center;
+      display: none;
+      z-index: 25;
+      width: min(340px, calc(100% - 24px));
+      max-height: calc(100% - 24px);
+      overflow-y: auto;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+    }
+
+    .final-panel h2 {
+      color: #DA291C;
+      font-size: 24px;
+      margin-bottom: 16px;
+      font-weight: bold;
+      text-shadow: 2px 2px 0px #FFC72C;
+    }
+
+    .final-score-box {
+      background: #FFC72C;
+      border: 3px solid #DA291C;
+      border-radius: 10px;
+      padding: 12px;
+      margin: 12px 0;
+    }
+
+    .final-score-label {
+      font-size: 13px;
+      color: #8B4513;
+      font-weight: bold;
+    }
+
+    .final-score-value {
+      font-size: 36px;
+      color: #DA291C;
+      font-weight: bold;
+      text-shadow: 2px 2px 0 #FFF;
+    }
+
+    .coupon-box {
+      background: #FFF;
+      border: 3px dashed #DA291C;
+      border-radius: 10px;
+      padding: 14px;
+      margin: 14px 0;
+    }
+
+    .coupon-title {
+      font-size: 13px;
+      color: #888;
+      margin-bottom: 6px;
+    }
+
+    .coupon-name {
+      font-size: 18px;
+      color: #DA291C;
+      font-weight: bold;
+      text-shadow: 1px 1px 0 #FFC72C;
+    }
+
+    .coupon-icon {
+      font-size: 40px;
+      margin: 8px 0;
+    }
+
+    .next-coupon {
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px dashed #d8c7a1;
+      color: #45635c;
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .next-coupon strong {
+      display: block;
+      margin-bottom: 4px;
+      color: #193b36;
+    }
+
+    .coupon-list {
+      margin-top: 10px;
+      color: #45635c;
+      font-size: 11px;
+      text-align: left;
+    }
+
+    .coupon-list summary {
+      color: #193b36;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .coupon-list ul {
+      padding: 6px 0 0 16px;
+      line-height: 1.6;
+    }
+
+    .coupon-note {
+      margin-top: 10px;
+      color: #888;
+      font-size: 10px;
+      line-height: 1.5;
+    }
+
+    .restart-btn {
+      display: block;
+      width: 100%;
+      padding: 14px;
+      margin-top: 16px;
+      background: #FFC72C;
+      color: #DA291C;
+      border: 3px solid #DA291C;
+      border-radius: 10px;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: transform 0.1s;
+    }
+
+    .restart-btn:hover {
+      transform: scale(1.03);
+    }
+
+    /* 分享弹窗 */
+    .toast {
+      position: absolute;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #333;
+      color: #FFF;
+      padding: 10px 20px;
+      border-radius: 20px;
+      font-size: 13px;
+      z-index: 40;
+      display: none;
+      white-space: nowrap;
+    }
+
+    /* 继续游戏按钮 */
+    .continue-btn {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #FFC72C;
+      color: #DA291C;
+      border: 4px solid #DA291C;
+      border-radius: 12px;
+      padding: 16px 40px;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 20px;
+      font-weight: bold;
+      cursor: pointer;
+      z-index: 15;
+      display: none;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+      transition: transform 0.1s;
+    }
+
+    .continue-btn:hover {
+      transform: translate(-50%, -50%) scale(1.05);
+    }
+
+    /* 生命/复活次数显示 */
+    .lives-display {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 16px;
+      color: #DA291C;
+      font-weight: bold;
+      z-index: 10;
+      text-shadow: 1px 1px 0 #FFF;
+    }
+
+    .footer-text {
+      margin-top: 22px;
+      font-size: 12px;
+      color: #58736c;
+      font-family: 'Courier New', Courier, monospace;
+      text-align: center;
+    }
+
+    @media (max-width: 760px) {
+      body { padding: 16px 14px 18px; }
+      .site-header { margin-bottom: 16px; }
+      .arcade-layout { grid-template-columns: minmax(0, 400px); gap: 24px; justify-content: center; }
+      .game-info { padding: 0 4px; }
+      .game-info h1 { font-size: 34px; }
+      .game-description { max-width: 420px; }
+      .record-panel { margin: 16px 0; }
+      .start-hint { margin-top: 14px; }
+      .footer-text { margin-top: 18px; }
+    }
+
+    @media (max-width: 380px) {
+      .brand-mark { font-size: 11px; }
+      .edition-tag { padding: 7px; font-size: 9px; }
+      .revive-panel { padding: 18px 14px; }
+      .final-panel { padding: 20px 14px; }
+    }
+
+    /* 像素抖动动画 */
+    @keyframes pixelShake {
+      0%, 100% { transform: translate(0, 0); }
+      25% { transform: translate(-2px, 2px); }
+      50% { transform: translate(2px, -2px); }
+      75% { transform: translate(-2px, -2px); }
+    }
+
+    .shake {
+      animation: pixelShake 0.15s ease-in-out 3;
+    }
+  </style>
+</head>
+<body data-page-node-id="O9FZvNs5qubOvgYSVULuIV">
+  <main class="site-shell">
+    <header class="site-header">
+      <div class="brand-mark" aria-label="麦当劳">
+        <svg class="brand-logo" viewBox="0 0 100 70" role="img" aria-label="麦当劳金色拱门">
+          <path d="M8 64C12 28 24 7 38 7c9 0 12 28 12 57M50 64c0-29 3-57 12-57 14 0 26 21 30 57" fill="none" stroke="#FFC72C" stroke-linecap="round" stroke-width="10" />
+        </svg>
+      </div>
+      <div class="edition-tag">PIXEL ARCADE · 001</div>
+    </header>
+    <div class="arcade-layout">
+      <section class="game-stage" aria-label="飞天麦乐鸡游戏">
+  <div data-page-node-id="xSYCIDmlcRGF9ccEKsBWEp" id="game-wrapper">
+    <canvas data-page-node-id="8XT7vjYEuUF1yr1409dDvD" height="600" id="gameCanvas" width="400"></canvas>
+    <button class="fullscreen-exit" id="fullscreenExit" type="button" aria-label="退出全屏" title="退出全屏">×</button>
+
+    <div data-page-node-id="RcZJLwON7YaFb6enqWc9Ts" class="lives-display" id="livesDisplay"></div>
+
+    <!--pnid:AeirNm5aSJlAsJUNzCyltb--><!-- 复活面板 -->
+    <div data-page-node-id="ntboKnjYsiRvTlAufXZYnD" class="revive-panel" id="revivePanel">
+      <h2 data-page-node-id="iYhB75yqaHr19kfhayN7Mp"><!--pnid:bXRbIyNBr2wGGHE0IqjBDr-->游戏结束!</h2>
+      <div data-page-node-id="3VWsVtyaWxhMeq4EhPIksT" id="reviveContent"></div>
+    </div>
+
+    <!--pnid:EagknG1WjjuCrQPKloQnod--><!-- 继续游戏按钮 -->
+    <button data-page-node-id="1XlvgolGSXe0Hmqo4UJLt6" class="continue-btn" id="continueBtn"><!--pnid:RQBIUjtBUifHgsEsLYe0J7-->继续游戏 ▶</button>
+
+    <!--pnid:SjfjWW1BEDdzheavsLrodZ--><!-- 广告黑屏 -->
+    <div data-page-node-id="VV0eeiV7NemciC6j40y5Wq" class="ad-overlay" id="adOverlay">
+      <div data-page-node-id="Cwnz5T6Fh68uTp1zAsqAr1" class="ad-logo"><!--pnid:Qh3zB2SwGk8aL9SJ8jKMvL-->🍟</div>
+      <div data-page-node-id="C7DZo7n7yYGXCNVcQIXUD8" class="ad-text"><!--pnid:fFkhFM9fW0MvszO2sZvcEG-->正在播放麦当劳广告</div>
+      <div data-page-node-id="eh7CDDEqlMGJdeqX6ntM46" class="ad-countdown" id="adCountdown"><!--pnid:zdTnNN0Lqnh0DPkuOFUCzH-->3</div>
+    </div>
+
+    <!--pnid:1NefXWHfDxjp7lqd4V7q5d--><!-- 最终结算面板 -->
+    <div data-page-node-id="cDcUZsP67u9xooMN45hRgP" class="final-panel" id="finalPanel">
+      <h2 data-page-node-id="m3LXtqvU7t9hdYr4UbnHDu"><!--pnid:dlSBPaW02StggXRf76Nyqj-->游戏结算</h2>
+      <div data-page-node-id="Fxtgpc5fFDbytjPDA5r7iP" class="final-score-box">
+        <div data-page-node-id="imUbF05vcn3iVUcFbEqeEo" class="final-score-label"><!--pnid:lypkzLKJLCquAPlzSTWXMz-->最终得分</div>
+        <div data-page-node-id="kPyEQGAwwYO9Zzr4ZVIQZq" class="final-score-value" id="finalScore"><!--pnid:5rMMV6hX99b5aVtPndEgRq-->0</div>
+      </div>
+      <div data-page-node-id="ZAHTIBqcfJiIGqSI9OqAFV" class="coupon-box">
+        <div data-page-node-id="86fVWfv7HsmEa6fb37LMil" class="coupon-title"><!--pnid:8HAYWPDZm2RQR0uwROgLBD-->获得优惠券</div>
+        <div data-page-node-id="JJ3thjJYxbgILlMz8IMorc" class="coupon-icon" id="couponIcon"><!--pnid:uWpH6ih9SF5z32C9Kq12dh-->🎫</div>
+        <div data-page-node-id="cflXEyBrP1CeJIOhOznABC" class="coupon-name" id="couponName"><!--pnid:jgBRsIiYI40KDOG7aXSSgt-->--</div>
+        <div class="next-coupon"><strong>下一个优惠券</strong><span id="nextCouponValue"></span></div>
+        <details class="coupon-list">
+          <summary>展开查看全部优惠券</summary>
+          <ul id="couponList"></ul>
+        </details>
+        <p class="coupon-note">活动期间内到任意线下门店兑换</p>
+      </div>
+      <button data-page-node-id="StTrj05e1z4pIeQqbj6qRr" class="restart-btn" id="restartBtn"><!--pnid:oLWWAU5o7eIspe7ZiWorT6-->再来一局</button>
+    </div>
+
+    <!--pnid:q4s61YkCXqAuJmHicm3lp5--><!-- 提示弹窗 -->
+    <div data-page-node-id="epcQgASXnC9WYfjLeVMj1r" class="toast" id="toast"></div>
+  </div>
+
+      </section>
+      <aside class="game-info">
+        <p class="eyebrow">限时街机挑战</p>
+        <h1>飞天麦乐鸡</h1>
+        <p class="game-description">闪转腾挪，穿过一排排薯条障碍。飞得越远，解锁的美味奖励越丰厚。</p>
+        <div class="record-panel"><span class="record-label">个人最高分</span><span class="record-value" id="recordValue">0</span></div>
+        <p class="controls-title">怎么起飞</p>
+        <div class="control-row"><span class="keycap">SPACE</span><span>按空格，让麦乐鸡向上飞</span></div>
+        <div class="control-row"><span class="keycap">点按</span><span>点击或轻触屏幕，同样起飞</span></div>
+        <p class="start-hint">准备好了吗？点击游戏画面开始挑战。</p>
+      </aside>
+    </div>
+    <div data-page-node-id="SYbb8Z62yUulOyhRZ1z9Y4" class="footer-text">一场像素风的麦乐鸡飞行挑战</div>
+  </main>
+
+  <script data-page-node-id="gwRhx3R2qfXj9fHV8UBX4b" data-pnid-children="pxwQmpWVjHXcJtag7I6fF0">
+    // ==================== 游戏配置 ====================
+    const canvas = document.getElementById('gameCanvas');
+    const ctx = canvas.getContext('2d');
+    const WRAP = document.getElementById('game-wrapper');
+
+    const W = 400;
+    const H = 600;
+    const GROUND_H = 60;
+
+    const COLORS = {
+      bg: '#FFF8DC',
+      bgTop: '#FFF5C3',
+      ground: '#DA291C',
+      groundLight: '#E83E33',
+      nugget: '#D4A035',
+      nuggetDark: '#B8860B',
+      nuggetCrust: '#C68E17',
+      fryBox: '#DA291C',
+      fryBoxDark: '#B51E14',
+      fry: '#FFD700',
+      fryDark: '#DAA520',
+      pipeBorder: '#B51E14',
+      score: '#DA291C',
+      cloud: '#FFFEF0'
+    };
+
+    // ==================== 游戏状态 ====================
+    let state = 'menu'; // menu, playing, dead, revive, ad, continue_wait, final
+    let score = 0;
+    let highScore = localStorage.getItem('mcd_flappy_high') || 0;
+    document.getElementById('recordValue').textContent = highScore;
+    let reviveCount = 0;
+    const MAX_REVIVE = 2;
+    let lastDeathX = 0; // 死亡位置，复活后从这里继续
+
+    // 麦乐鸡
+    const bird = {
+      x: 80,
+      y: H / 2,
+      w: 34,
+      h: 28,
+      vy: 0,
+      gravity: 0.45,
+      jump: -7.5,
+      rotation: 0,
+      wingFrame: 0,
+      wingTimer: 0
+    };
+
+    // 薯条障碍物
+    let obstacles = [];
+    const OBSTACLE_W = 56;
+    const OBSTACLE_GAP = 160;
+    const OBSTACLE_SPEED = 2.8;
+    let obstacleTimer = 0;
+    let obstacleInterval = 110; // 帧数间隔
+
+    // 云朵装饰
+    let clouds = [];
+
+    // 粒子效果
+    let particles = [];
+
+    // ==================== 初始化 ====================
+    function initClouds() {
+      clouds = [];
+      for (let i = 0; i < 5; i++) {
+        clouds.push({
+          x: Math.random() * W,
+          y: 40 + Math.random() * 120,
+          w: 50 + Math.random() * 60,
+          speed: 0.3 + Math.random() * 0.5
+        });
+      }
+    }
+
+    function initGame(resetScore = true) {
+      bird.y = H / 2 - 50;
+      bird.vy = 0;
+      bird.rotation = 0;
+      bird.wingFrame = 0;
+      obstacles = [];
+      obstacleTimer = 0;
+      particles = [];
+      if (resetScore) {
+        score = 0;
+        reviveCount = 0;
+      }
+      initClouds();
+      updateLivesDisplay();
+    }
+
+    initClouds();
+
+    // ==================== 绘制函数 ====================
+    function drawPixelRect(x, y, w, h, color) {
+      ctx.fillStyle = color;
+      ctx.fillRect(Math.floor(x), Math.floor(y), w, h);
+    }
+
+    function drawPixelCircle(cx, cy, r, color) {
+      ctx.fillStyle = color;
+      ctx.beginPath();
+      ctx.arc(cx, cy, r, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    // 绘制背景
+    function drawBackground() {
+      // 天空渐变
+      const grad = ctx.createLinearGradient(0, 0, 0, H - GROUND_H);
+      grad.addColorStop(0, COLORS.bgTop);
+      grad.addColorStop(1, COLORS.bg);
+      ctx.fillStyle = grad;
+      ctx.fillRect(0, 0, W, H);
+
+      // 云朵
+      ctx.fillStyle = COLORS.cloud;
+      for (const c of clouds) {
+        ctx.fillRect(c.x, c.y, c.w, 16);
+        ctx.fillRect(c.x + 8, c.y - 10, c.w - 20, 12);
+        ctx.fillRect(c.x + 16, c.y - 6, c.w - 32, 8);
+      }
+
+      // 远景装饰 - 麦当劳拱门剪影
+      ctx.fillStyle = '#F0E68C';
+      ctx.fillRect(50, H - GROUND_H - 50, 8, 50);
+      ctx.fillRect(90, H - GROUND_H - 50, 8, 50);
+      ctx.fillRect(50, H - GROUND_H - 58, 48, 8);
+
+      ctx.fillRect(280, H - GROUND_H - 40, 6, 40);
+      ctx.fillRect(310, H - GROUND_H - 40, 6, 40);
+      ctx.fillRect(280, H - GROUND_H - 46, 36, 6);
+
+      // 地面
+      ctx.fillStyle = COLORS.ground;
+      ctx.fillRect(0, H - GROUND_H, W, GROUND_H);
+      ctx.fillStyle = COLORS.groundLight;
+      ctx.fillRect(0, H - GROUND_H, W, 6);
+
+      // 地面条纹
+      ctx.fillStyle = '#C41E14';
+      for (let i = 0; i < W; i += 30) {
+        const offset = (Date.now() / 20) % 30;
+        ctx.fillRect(i - offset, H - GROUND_H + 10, 15, 4);
+        ctx.fillRect(i - offset + 5, H - GROUND_H + 24, 15, 4);
+        ctx.fillRect(i - offset + 2, H - GROUND_H + 38, 15, 4);
+      }
+    }
+
+    // 绘制像素风麦乐鸡
+    function drawNugget(b) {
+      const x = Math.floor(b.x);
+      const y = Math.floor(b.y);
+      const px = 2; // 像素大小
+
+      ctx.save();
+      ctx.translate(x + b.w / 2, y + b.h / 2);
+      ctx.rotate(b.rotation);
+      ctx.translate(-(x + b.w / 2), -(y + b.h / 2));
+
+      // 麦乐鸡主体（不规则形状用像素块拼）
+      const nuggetPixels = [
+        '  XXXXXX  ',
+        ' XXXXXXXX ',
+        'XXXXXXXXXX',
+        'XXXXXXXXXX',
+        ' XXXXXXXX ',
+        '  XXXXXX  ',
+        '   XXXX   '
+      ];
+
+      for (let row = 0; row < nuggetPixels.length; row++) {
+        const line = nuggetPixels[row];
+        for (let col = 0; col < line.length; col++) {
+          if (line[col] === 'X') {
+            // 颜色变化模拟烤色
+            let color = COLORS.nugget;
+            if ((row + col) % 3 === 0) color = COLORS.nuggetCrust;
+            if ((row + col) % 5 === 0) color = COLORS.nuggetDark;
+            drawPixelRect(x + col * px, y + row * px + 2, px, px, color);
+          }
+        }
+      }
+
+      // 眼睛
+      drawPixelRect(x + 16, y + 10, 4, 4, '#000');
+      drawPixelRect(x + 17, y + 10, 2, 2, '#FFF');
+
+      // 嘴巴
+      drawPixelRect(x + 20, y + 14, 6, 3, '#FF6B35');
+
+      // 翅膀（动画）
+      const wingY = b.wingFrame === 0 ? y + 14 : (b.wingFrame === 1 ? y + 12 : y + 16);
+      drawPixelRect(x - 4, wingY, 8, 6, COLORS.nuggetCrust);
+      drawPixelRect(x - 2, wingY + 1, 6, 4, COLORS.nugget);
+
+      ctx.restore();
+    }
+
+    // 绘制薯条障碍物
+    function drawFryObstacle(obs) {
+      const x = obs.x;
+      const w = OBSTACLE_W;
+
+      // 上面的薯条盒子
+      if (obs.topH > 0) {
+        const topY = obs.topH - 180;
+        // 盒子主体
+        drawPixelRect(x + 4, topY, w - 8, 180, COLORS.fryBox);
+        // 盒子暗面
+        drawPixelRect(x + w - 12, topY, 8, 180, COLORS.fryBoxDark);
+        // 盒子边框
+        drawPixelRect(x + 4, topY + 170, w - 8, 4, COLORS.pipeBorder);
+        // 薯条露头
+        for (let i = 0; i < 5; i++) {
+          const fx = x + 8 + i * 10;
+          const fh = 18 + (i % 3) * 8;
+          drawPixelRect(fx, obs.topH - fh, 6, fh, COLORS.fry);
+          drawPixelRect(fx + 1, obs.topH - fh, 2, fh, COLORS.fryDark);
+        }
+        // 麦当劳标志（简化的M）
+        ctx.fillStyle = '#FFC72C';
+        ctx.font = 'bold 14px monospace';
+        ctx.fillText('M', x + w / 2 - 6, topY + 100);
+      }
+
+      // 下面的薯条盒子
+      const gapBottom = obs.topH + OBSTACLE_GAP;
+      const bottomH = H - GROUND_H - gapBottom;
+      if (bottomH > 0) {
+        // 盒子主体
+        drawPixelRect(x + 4, gapBottom, w - 8, bottomH, COLORS.fryBox);
+        // 盒子暗面
+        drawPixelRect(x + w - 12, gapBottom, 8, bottomH, COLORS.fryBoxDark);
+        // 盒子顶部边框
+        drawPixelRect(x + 4, gapBottom, w - 8, 4, COLORS.pipeBorder);
+        // 薯条露头
+        for (let i = 0; i < 5; i++) {
+          const fx = x + 8 + i * 10;
+          const fh = 16 + (i % 3) * 6;
+          drawPixelRect(fx, gapBottom, 6, fh, COLORS.fry);
+          drawPixelRect(fx + 1, gapBottom, 2, fh, COLORS.fryDark);
+        }
+        // 麦当劳标志
+        ctx.fillStyle = '#FFC72C';
+        ctx.font = 'bold 14px monospace';
+        ctx.fillText('M', x + w / 2 - 6, gapBottom + bottomH / 2 + 5);
+      }
+    }
+
+    // 绘制分数
+    function drawScore() {
+      ctx.fillStyle = COLORS.score;
+      ctx.font = 'bold 28px "Courier New", monospace';
+      ctx.textAlign = 'center';
+      ctx.fillText(score.toString(), W / 2, 50);
+
+      // 分数阴影
+      ctx.fillStyle = 'rgba(0,0,0,0.1)';
+      ctx.fillText(score.toString(), W / 2 + 2, 52);
+
+      ctx.textAlign = 'left';
+    }
+
+    // 绘制开始菜单
+    function drawMenu() {
+      drawBackground();
+
+      // 标题
+      ctx.fillStyle = '#DA291C';
+      ctx.font = 'bold 26px "Courier New", monospace';
+      ctx.textAlign = 'center';
+      ctx.fillText('飞天麦乐鸡', W / 2, 160);
+
+      ctx.fillStyle = '#B8860B';
+      ctx.font = 'bold 36px "Courier New", monospace';
+      ctx.fillText('McNugget', W / 2, 200);
+
+      // 麦乐鸡图标
+      bird.x = W / 2 - 17;
+      bird.y = 250;
+      bird.rotation = Math.sin(Date.now() / 300) * 0.1;
+      bird.wingFrame = Math.floor(Date.now() / 150) % 3;
+      drawNugget(bird);
+
+      // 提示
+      ctx.fillStyle = '#8B4513';
+      ctx.font = '16px "Courier New", monospace';
+      ctx.fillText('按空格键或点击开始', W / 2, 340);
+      ctx.fillText('帮助麦乐鸡飞过薯条!', W / 2, 370);
+
+      // 最高分
+      ctx.fillStyle = '#DA291C';
+      ctx.font = '14px "Courier New", monospace';
+      ctx.fillText('最高分: ' + highScore, W / 2, 420);
+
+      ctx.textAlign = 'left';
+    }
+
+    // 绘制粒子
+    function drawParticles() {
+      for (let i = particles.length - 1; i >= 0; i--) {
+        const p = particles[i];
+        p.x += p.vx;
+        p.y += p.vy;
+        p.life--;
+        if (p.life <= 0) {
+          particles.splice(i, 1);
+          continue;
+        }
+        ctx.globalAlpha = p.life / p.maxLife;
+        drawPixelRect(p.x, p.y, p.size, p.size, p.color);
+        ctx.globalAlpha = 1;
+      }
+    }
+
+    function addParticles(x, y, color, count = 8) {
+      for (let i = 0; i < count; i++) {
+        particles.push({
+          x, y,
+          vx: (Math.random() - 0.5) * 4,
+          vy: (Math.random() - 0.5) * 4,
+          life: 20 + Math.random() * 15,
+          maxLife: 35,
+          size: 2 + Math.random() * 3,
+          color
+        });
+      }
+    }
+
+    // ==================== 游戏逻辑 ====================
+    function spawnObstacle() {
+      const minH = 60;
+      const maxH = H - GROUND_H - OBSTACLE_GAP - minH;
+      const topH = minH + Math.random() * (maxH - minH);
+      obstacles.push({
+        x: W,
+        topH,
+        passed: false
+      });
+    }
+
+    function updateObstacles() {
+      for (let i = obstacles.length - 1; i >= 0; i--) {
+        const obs = obstacles[i];
+        obs.x -= OBSTACLE_SPEED;
+
+        // 计分
+        if (!obs.passed && obs.x + OBSTACLE_W < bird.x) {
+          obs.passed = true;
+          score++;
+          addParticles(bird.x + 20, bird.y, '#FFC72C', 6);
+        }
+
+        // 移除屏幕外的障碍物
+        if (obs.x + OBSTACLE_W < -20) {
+          obstacles.splice(i, 1);
+        }
+      }
+    }
+
+    function updateClouds() {
+      for (const c of clouds) {
+        c.x -= c.speed;
+        if (c.x + c.w < -20) {
+          c.x = W + 20;
+          c.y = 40 + Math.random() * 120;
+        }
+      }
+    }
+
+    function checkCollision() {
+      const bx = bird.x + 6;
+      const by = bird.y + 4;
+      const bw = bird.w - 12;
+      const bh = bird.h - 8;
+
+      // 地面碰撞
+      if (by + bh >= H - GROUND_H) {
+        return true;
+      }
+
+      // 天花板碰撞
+      if (by < -10) {
+        return true;
+      }
+
+      // 障碍物碰撞
+      for (const obs of obstacles) {
+        const ox = obs.x + 4;
+        const ow = OBSTACLE_W - 8;
+
+        // 上面盒子
+        if (obs.topH > 0) {
+          if (bx < ox + ow && bx + bw > ox && by < obs.topH) {
+            return true;
+          }
+        }
+
+        // 下面盒子
+        const gapBottom = obs.topH + OBSTACLE_GAP;
+        const bottomH = H - GROUND_H - gapBottom;
+        if (bottomH > 0) {
+          if (bx < ox + ow && bx + bw > ox && by + bh > gapBottom) {
+            return true;
+          }
+        }
+      }
+
+      return false;
+    }
+
+    function gameOver() {
+      state = 'dead';
+      bird.vy = 0;
+      lastDeathX = bird.x;
+
+      // 死亡粒子
+      addParticles(bird.x + bird.w / 2, bird.y + bird.h / 2, '#D4A035', 20);
+
+      if (score > highScore) {
+        highScore = score;
+        localStorage.setItem('mcd_flappy_high', highScore);
+        document.getElementById('recordValue').textContent = highScore;
+      }
+
+      setTimeout(() => {
+        if (state === 'dead') {
+          showRevivePanel();
+        }
+      }, 500);
+    }
+
+    function showRevivePanel() {
+      const panel = document.getElementById('revivePanel');
+      const content = document.getElementById('reviveContent');
+
+      let html = '';
+      if (reviveCount < MAX_REVIVE) {
+        if (reviveCount === 0) {
+          html += '<button class="revive-btn primary" id="btnAdRevive">🍟 观看麦当劳广告复活</button>';
+        } else {
+          html += '<button class="revive-btn primary" id="btnShareRevive">📤 邀请好友助力复活</button>';
+        }
+      }
+      html += '<button class="revive-btn tertiary" id="btnEndGame">结束游戏</button>';
+
+      content.innerHTML = html;
+      panel.style.display = 'block';
+      state = 'revive';
+
+      // 绑定按钮事件
+      setTimeout(() => {
+        const btnAd = document.getElementById('btnAdRevive');
+        const btnShare = document.getElementById('btnShareRevive');
+        const btnEnd = document.getElementById('btnEndGame');
+
+        if (btnAd) btnAd.onclick = onAdRevive;
+        if (btnShare) btnShare.onclick = onShareRevive;
+        if (btnEnd) btnEnd.onclick = onEndGame;
+      }, 10);
+    }
+
+    function hideRevivePanel() {
+      document.getElementById('revivePanel').style.display = 'none';
+    }
+
+    // 广告复活
+    function onAdRevive() {
+      hideRevivePanel();
+      state = 'ad';
+      const overlay = document.getElementById('adOverlay');
+      const countdownEl = document.getElementById('adCountdown');
+      overlay.style.display = 'flex';
+
+      let count = 3;
+      countdownEl.textContent = count;
+
+      const timer = setInterval(() => {
+        count--;
+        countdownEl.textContent = count;
+        if (count <= 0) {
+          clearInterval(timer);
+          overlay.style.display = 'none';
+          reviveCount++;
+          updateLivesDisplay();
+          showContinueButton();
+        }
+      }, 1000);
+    }
+
+    // 分享复活
+    function onShareRevive() {
+      // 模拟复制链接
+      const shareText = `我在「麦当劳飞天麦乐鸡」中得了${score}分！快来挑战吧！`;
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(shareText).catch(() => {});
+      }
+      showToast('已复制分享链接！');
+
+      hideRevivePanel();
+      reviveCount++;
+      updateLivesDisplay();
+      showContinueButton();
+    }
+
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      toast.textContent = msg;
+      toast.style.display = 'block';
+      setTimeout(() => {
+        toast.style.display = 'none';
+      }, 2000);
+    }
+
+    function showContinueButton() {
+      state = 'continue_wait';
+      const btn = document.getElementById('continueBtn');
+      btn.style.display = 'block';
+      btn.onclick = () => {
+        btn.style.display = 'none';
+        startContinueCountdown();
+      };
+    }
+
+    function startContinueCountdown() {
+      const overlay = document.getElementById('adOverlay');
+      const text = overlay.querySelector('.ad-text');
+      const countdown = document.getElementById('adCountdown');
+      let count = 3;
+
+      text.textContent = '即将继续游戏';
+      countdown.textContent = count;
+      overlay.style.display = 'flex';
+
+      const timer = setInterval(() => {
+        count--;
+        if (count > 0) {
+          countdown.textContent = count;
+          return;
+        }
+
+        clearInterval(timer);
+        overlay.style.display = 'none';
+        continueGame();
+      }, 1000);
+    }
+
+    function continueGame() {
+      // 重置鸟的状态
+      bird.vy = 0;
+      bird.y = H / 2 - 50;
+      bird.rotation = 0;
+      bird.wingTimer = 0;
+
+      // 清理鸟周围的障碍物，避免立即再次死亡
+      obstacles = obstacles.filter(obs => obs.x + OBSTACLE_W < bird.x - 40 || obs.x > bird.x + 80);
+
+      state = 'playing';
+    }
+
+    function onEndGame() {
+      hideRevivePanel();
+      showFinalPanel();
+    }
+
+    function showFinalPanel() {
+      state = 'final';
+      const panel = document.getElementById('finalPanel');
+      document.getElementById('finalScore').textContent = score;
+
+      const rewards = [
+        { threshold: 50, name: '麦乐鸡侠券', description: '多一块麦乐鸡', icon: '🐔' },
+        { threshold: 100, name: '薯条升级券', description: '薯条升级', icon: '🍟' },
+        { threshold: 200, name: '免费甜筒券', description: '免费甜筒', icon: '🍦' },
+        { threshold: 300, name: '免费汉堡券', description: '免费汉堡', icon: '🍔' }
+      ];
+      const earnedReward = rewards.reduce((current, reward) => score >= reward.threshold ? reward : current, null);
+      const nextReward = rewards.find(reward => score < reward.threshold);
+
+      document.getElementById('couponIcon').textContent = earnedReward ? earnedReward.icon : '🎫';
+      document.getElementById('couponName').textContent = earnedReward
+        ? `${earnedReward.name}（${earnedReward.description}）`
+        : '加油，再试一次！';
+      document.getElementById('nextCouponValue').textContent = nextReward
+        ? `${nextReward.threshold}分 - ${nextReward.name}（${nextReward.description}）`
+        : '已解锁全部奖励';
+
+      const couponList = document.getElementById('couponList');
+      couponList.replaceChildren(...rewards.map(reward => {
+        const item = document.createElement('li');
+        item.textContent = `${reward.threshold}分 - ${reward.name}（${reward.description}）`;
+        return item;
+      }));
+
+      panel.style.display = 'block';
+
+      document.getElementById('restartBtn').onclick = () => {
+        panel.style.display = 'none';
+        initGame(true);
+        state = 'menu';
+      };
+    }
+
+    function updateLivesDisplay() {
+      const el = document.getElementById('livesDisplay');
+      const remaining = MAX_REVIVE - reviveCount;
+      el.textContent = '❤️'.repeat(remaining) + '🖤'.repeat(reviveCount);
+    }
+
+    // ==================== 主循环 ====================
+    function gameLoop() {
+      if (state === 'menu') {
+        drawMenu();
+      } else if (state === 'playing') {
+        // 物理更新
+        bird.vy += bird.gravity;
+        bird.y += bird.vy;
+
+        // 旋转
+        if (bird.vy < 0) {
+          bird.rotation = -0.3;
+        } else {
+          bird.rotation = Math.min(Math.PI / 4, bird.rotation + 0.05);
+        }
+
+        // 翅膀动画
+        bird.wingTimer++;
+        if (bird.wingTimer > 8) {
+          bird.wingTimer = 0;
+          bird.wingFrame = (bird.wingFrame + 1) % 3;
+        }
+
+        // 障碍物生成
+        obstacleTimer++;
+        if (obstacleTimer >= obstacleInterval) {
+          obstacleTimer = 0;
+          spawnObstacle();
+        }
+
+        updateObstacles();
+        updateClouds();
+
+        // 碰撞检测
+        if (checkCollision()) {
+          gameOver();
+        }
+
+        // 绘制
+        drawBackground();
+        for (const obs of obstacles) {
+          drawFryObstacle(obs);
+        }
+        drawNugget(bird);
+        drawParticles();
+        drawScore();
+
+      } else if (state === 'dead') {
+        // 死亡瞬间保持画面
+        drawBackground();
+        for (const obs of obstacles) {
+          drawFryObstacle(obs);
+        }
+        // 死亡时麦乐鸡下坠
+        if (bird.y < H - GROUND_H - bird.h) {
+          bird.vy += bird.gravity;
+          bird.y += bird.vy;
+          bird.rotation += 0.1;
+        }
+        drawNugget(bird);
+        drawParticles();
+        drawScore();
+
+      } else if (state === 'revive' || state === 'continue_wait' || state === 'final') {
+        // 保持背景但不更新物理
+        drawBackground();
+        for (const obs of obstacles) {
+          drawFryObstacle(obs);
+        }
+        drawNugget(bird);
+        drawScore();
+      }
+
+      requestAnimationFrame(gameLoop);
+    }
+
+    // ==================== 输入处理 ====================
+    function jump() {
+      if (state === 'menu') {
+        initGame(true);
+        state = 'playing';
+        bird.vy = bird.jump;
+        if (WRAP.requestFullscreen && !document.fullscreenElement) {
+          WRAP.requestFullscreen().catch(() => {});
+        }
+      } else if (state === 'playing') {
+        bird.vy = bird.jump;
+        bird.wingFrame = 1;
+        bird.wingTimer = 0;
+      }
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.code === 'Space') {
+        e.preventDefault();
+        jump();
+      }
+    });
+
+    canvas.addEventListener('mousedown', (e) => {
+      e.preventDefault();
+      jump();
+    });
+
+    canvas.addEventListener('touchstart', (e) => {
+      e.preventDefault();
+      jump();
+    }, { passive: false });
+
+    document.getElementById('fullscreenExit').addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (document.fullscreenElement) {
+        document.exitFullscreen().catch(() => {});
+      }
+    });
+
+    // 防止页面滚动
+    document.addEventListener('touchmove', (e) => {
+      e.preventDefault();
+    }, { passive: false });
+
+    // 启动
+    requestAnimationFrame(gameLoop);
+  </script>
+</body>
+</html>
